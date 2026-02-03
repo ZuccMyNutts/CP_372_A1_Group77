@@ -19,5 +19,6 @@ public class Note {
     public String getMessage() { return message; }
     public boolean isPinned() { return pinned; }
     
+    // Setter for pinned
     public void setPinned(boolean pinned) { this.pinned = pinned; }
 }
