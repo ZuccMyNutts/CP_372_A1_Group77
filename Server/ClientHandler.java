@@ -49,40 +49,43 @@ public class ClientHandler extends Thread {
         }
     }
     
-    private String processCommand(String command) {
-        String[] parts = command.split(" ");
-        
-        if (parts.length == 0) {
-            return "ERROR INVALID_FORMAT";
-        }
-        
-        String cmd = parts[0].toUpperCase();
-        
-        switch (cmd) {
-            case "POST":
-                return handlePost(parts);
-            case "GET":
-                return handleGet(command);
-            case "GET_PINS":
-            case "GET PINS":
-                return handleGetPins();
-            case "GET_ALL":
-            case "GET ALL":
-                return handleGetAll();
-            case "PIN":
-                return handlePin(parts);
-            case "UNPIN":
-                return handleUnpin(parts);
-            case "SHAKE":
-                return handleShake();
-            case "CLEAR":
-                return handleClear();
-            case "QUIT":
-                return "GOODBYE";
-            default:
-                return "ERROR UNKNOWN_COMMAND";
-        }
+private String processCommand(String command) {
+    String[] parts = command.split(" ");
+    
+    if (parts.length == 0) {
+        return "ERROR INVALID_FORMAT";
     }
+    
+    String cmd = parts[0].toUpperCase();
+    
+    // Check for multi-word commands first
+    if (command.toUpperCase().equals("GET PINS") || command.toUpperCase().equals("GET_PINS")) {
+        return handleGetPins();
+    }
+    
+    if (command.toUpperCase().equals("GET ALL") || command.toUpperCase().equals("GET_ALL")) {
+        return handleGetAll();
+    }
+    // Handle single-word commands
+    switch (cmd) {
+        case "POST":
+            return handlePost(parts);
+        case "GET":
+            return handleGet(command);
+        case "PIN":
+            return handlePin(parts);
+        case "UNPIN":
+            return handleUnpin(parts);
+        case "SHAKE":
+            return handleShake();
+        case "CLEAR":
+            return handleClear();
+        case "QUIT":
+            return "GOODBYE";
+        default:
+            return "ERROR UNKNOWN_COMMAND";
+    }
+}
     
     private String handleGet(String command) {
         // Parse filters from command
