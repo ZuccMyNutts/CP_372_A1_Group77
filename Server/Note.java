@@ -12,25 +12,29 @@ public class Note {
         this.pinned = false;
     }
     
+    // Setter
+    public void setPinned(boolean pinned) {
+         this.pinned = pinned; 
+    }
+    
     // Getters
     public int getX() { 
         return x; 
     }
+    
     public int getY() { 
         return y; 
     }
+    
     public String getColor() { 
         return color; 
     }
+    
     public String getMessage() {
          return message; 
-        }
+    }
+    
     public boolean isPinned() {
          return pinned; 
-        }
-    
-    // Setter for pinned
-    public void setPinned(boolean pinned) {
-         this.pinned = pinned; 
-        }
+    }
 }

@@ -18,7 +18,7 @@ public class BulletinBoardSever {
             int noteWidth = Integer.parseInt(args[3]);
             int noteHeight = Integer.parseInt(args[4]);
             
-            // Get colors
+            // colors
             String[] colors = new String[args.length - 5];
             for (int i = 5; i < args.length; i++) {
                 colors[i - 5] = args[i].toLowerCase();
@@ -35,15 +35,12 @@ public class BulletinBoardSever {
             System.out.println("Colors: " + String.join(", ", colors));
             System.out.println("Server listening on port " + port);
             
-            // Create server socket
+            // make server socket
             ServerSocket serverSocket = new ServerSocket(port);
             
-            // Main server loop
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("New connection from: " + clientSocket.getInetAddress());
-                
-                // Handle client in new thread
                 ClientHandler handler = new ClientHandler(clientSocket);
                 handler.start();
             }
